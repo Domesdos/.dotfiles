@@ -98,6 +98,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
 alias vim=nvim
+
+# Set flags
 alias mkrc="mkrc -v"
 alias rcup="rcup -v"
+alias mkdir="mkdir -v"
