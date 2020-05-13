@@ -15,6 +15,7 @@ call vundle#begin()
     Plugin 'gmarik/Vundle.vim'                           " Vundle
     Plugin 'itchyny/lightline.vim'                       " Lightline statusbar
     Plugin 'suan/vim-instant-markdown', {'rtp': 'after'} " Markdown Preview
+    Plugin 'ap/vim-buftabline'                              " Buffer tabs
 "{{ File management }}
 "    Plugin 'vifm/vifm.vim'                               " Vifm
     Plugin 'scrooloose/nerdtree'                         " Nerdtree
@@ -73,6 +74,11 @@ omap < [
 omap > ]
 xmap < [
 xmap > ]
+
+" manage buffers
+nmap bn :bnext<CR>
+nmap bp :bprev<CR>
+nmap bd :bd<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status Line
@@ -143,12 +149,12 @@ highlight Function         ctermfg=1    ctermbg=none    cterm=none
 " highlight SpellRare        ctermfg=121     ctermbg=none    cterm=underline
 " highlight SpellLocal       ctermfg=186     ctermbg=none    cterm=underline
 " highlight Pmenu            ctermfg=251     ctermbg=234     cterm=none
-" highlight PmenuSel         ctermfg=0       ctermbg=111     cterm=none
+highlight PmenuSel         ctermfg=244       ctermbg=none     cterm=none
 " highlight PmenuSbar        ctermfg=206     ctermbg=235     cterm=none
 " highlight PmenuThumb       ctermfg=235     ctermbg=206     cterm=none
-" highlight TabLine          ctermfg=244     ctermbg=234     cterm=none
-" highlight TablineSel       ctermfg=0       ctermbg=247     cterm=none
-" highlight TablineFill      ctermfg=244     ctermbg=234     cterm=none
+highlight TabLine          ctermfg=244     ctermbg=none     cterm=none
+highlight TablineSel       ctermfg=0       ctermbg=12     cterm=none
+highlight TablineFill      ctermfg=244     ctermbg=8     cterm=none
 " highlight CursorColumn     ctermfg=none    ctermbg=236     cterm=none
 " highlight CursorLine       ctermfg=none    ctermbg=236     cterm=none
 " highlight ColorColumn      ctermfg=none    ctermbg=236     cterm=none
@@ -217,8 +223,8 @@ let g:python_highlight_all = 1
 au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
 au BufEnter *.org            call org#SetOrgFileType()
 
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
+" set guioptions-=m  "remove menu bar
+" set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
