@@ -13,7 +13,7 @@ export ZSH="/home/mw/.oh-my-zsh"
 
 # Set default editor
 export EDITOR="nvim"
-
+export RANGER_LOAD_DEFAULT_RC=false
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -117,5 +117,10 @@ alias mkrc="mkrc -v"
 alias rcup="rcup -v"
 alias mkdir="mkdir -v"
 
+alias ls=lsd 
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.dotfiles/p10k.zsh.
+[[ ! -f ~/.dotfiles/p10k.zsh ]] || source ~/.dotfiles/p10k.zsh
