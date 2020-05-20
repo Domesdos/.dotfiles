@@ -40,6 +40,7 @@ mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
+myTerm = "alacritty"
 
 
 @lazy.function
@@ -65,11 +66,11 @@ keys = [
     Key([mod], "f", lazy.window.toggle_fullscreen()),
     Key([mod], "x", lazy.window.kill()),
     Key([mod], "Escape", lazy.spawn('xkill')),
-    Key([mod], "Return", lazy.spawn('alacritty')),
+    Key([mod], "Return", lazy.spawn(myTerm)),
 
 # SUPER [mod] + SHIFT +  KEY
 
-    Key([mod, "shift"], "f", lazy.spawn('pcmanfm')),
+    Key([mod, "shift"], "f", lazy.spawn(myTerm+" -t 'ranger' -e ranger")),
     Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=12'")),
     Key([mod, "shift"], "q", lazy.shutdown()),
     Key([mod, "shift"], "r", lazy.restart()),
@@ -184,7 +185,7 @@ keys = [
 
 
 # FLIP LAYOUT FOR MONADTALL/MONADWIDE
-    Key([mod, "shift"], "f", lazy.layout.flip()),
+    # Key([mod, "shift"], "f", lazy.layout.flip()),
 
 # FLIP LAYOUT FOR BSP
     Key([mod, "mod1"], "k", lazy.layout.flip_up()),
@@ -603,6 +604,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'ssh-askpass'},
     {'wname': 'Steam'},
     {'wmclass': 'Steam'},
+    # {'wname': 'ranger'},
 
 ],  fullscreen_border_width = 0, border_width = 0)
 auto_fullscreen = True

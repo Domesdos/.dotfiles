@@ -13,6 +13,7 @@ export ZSH="/home/mw/.oh-my-zsh"
 
 # Set default editor
 export EDITOR="nvim"
+export VISUAL="$EDITOR"
 export RANGER_LOAD_DEFAULT_RC=false
 
 # Set name of the theme to load --- if set to "random", it will
