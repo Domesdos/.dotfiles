@@ -33,7 +33,6 @@ from libqtile.config import Drag, Key, Screen, Group, Drag, Click, Rule
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.widget import Spacer
-#import arcobattery
 
 #mod4 or mod = super key
 mod = "mod4"
@@ -59,7 +58,6 @@ keys = [
 
 # FUNCTION KEYS
 
-    Key([], "F12", lazy.spawn('xfce4-terminal --drop-down')),
 
 # SUPER [mod] + KEY 
 
@@ -84,53 +82,15 @@ keys = [
 
     ##
 
-# VARIETY KEYS WITH PYWAL
-
-    Key(["mod1", "shift"], "f", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -f')),
-    Key(["mod1", "shift"], "p", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -p')),
-    Key(["mod1", "shift"], "n", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -n')),
-    Key(["mod1", "shift"], "u", lazy.spawn(home + '/.config/qtile/scripts/set-pywal.sh -u')),
-
 # CONTROL [mod2] + SHIFT +  KEY
 
     ##
-
-# SCREENSHOTS
-
-    Key([], "Print", lazy.spawn("scrot 'ArcoLinux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'")),
-    Key([mod2], "Print", lazy.spawn('xfce4-screenshooter')),
-    Key([mod2, "shift"], "Print", lazy.spawn('gnome-screenshot -i')),
-
-# MULTIMEDIA KEYS
-
-# INCREASE/DECREASE BRIGHTNESS
-    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 5")),
-
-# INCREASE/DECREASE/MUTE VOLUME
-    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -q set Master 5%-")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -q set Master 5%+")),
-
-    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
-    Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
-    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
-    Key([], "XF86AudioStop", lazy.spawn("playerctl stop")),
-
-#    Key([], "XF86AudioPlay", lazy.spawn("mpc toggle")),
-#    Key([], "XF86AudioNext", lazy.spawn("mpc next")),
-#    Key([], "XF86AudioPrev", lazy.spawn("mpc prev")),
-#    Key([], "XF86AudioStop", lazy.spawn("mpc stop")),
 
 # QTILE LAYOUT KEYS
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "space", lazy.next_layout()),
 
 # CHANGE FOCUS
-    Key([mod], "Up", lazy.layout.up()),
-    Key([mod], "Down", lazy.layout.down()),
-    Key([mod], "Left", lazy.layout.left()),
-    Key([mod], "Right", lazy.layout.right()),
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "h", lazy.layout.left()),
@@ -144,19 +104,7 @@ keys = [
         lazy.layout.increase_ratio(),
         lazy.layout.delete(),
         ),
-    Key([mod, "control"], "Right",
-        lazy.layout.grow_right(),
-        lazy.layout.grow(),
-        lazy.layout.increase_ratio(),
-        lazy.layout.delete(),
-        ),
     Key([mod, "control"], "h",
-        lazy.layout.grow_left(),
-        lazy.layout.shrink(),
-        lazy.layout.decrease_ratio(),
-        lazy.layout.add(),
-        ),
-    Key([mod, "control"], "Left",
         lazy.layout.grow_left(),
         lazy.layout.shrink(),
         lazy.layout.decrease_ratio(),
@@ -167,37 +115,12 @@ keys = [
         lazy.layout.grow(),
         lazy.layout.decrease_nmaster(),
         ),
-    Key([mod, "control"], "Up",
-        lazy.layout.grow_up(),
-        lazy.layout.grow(),
-        lazy.layout.decrease_nmaster(),
-        ),
     Key([mod, "control"], "j",
         lazy.layout.grow_down(),
         lazy.layout.shrink(),
         lazy.layout.increase_nmaster(),
         ),
-    Key([mod, "control"], "Down",
-        lazy.layout.grow_down(),
-        lazy.layout.shrink(),
-        lazy.layout.increase_nmaster(),
-        ),
 
-
-# FLIP LAYOUT FOR MONADTALL/MONADWIDE
-    # Key([mod, "shift"], "f", lazy.layout.flip()),
-
-# FLIP LAYOUT FOR BSP
-    Key([mod, "mod1"], "k", lazy.layout.flip_up()),
-    Key([mod, "mod1"], "j", lazy.layout.flip_down()),
-    Key([mod, "mod1"], "l", lazy.layout.flip_right()),
-    Key([mod, "mod1"], "h", lazy.layout.flip_left()),
-
-# MOVE WINDOWS UP OR DOWN BSP LAYOUT
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
 
 # MOVE WINDOWS UP OR DOWN MONADTALL/MONADWIDE LAYOUT
     Key([mod, "shift"], "Up", lazy.layout.shuffle_up()),
@@ -211,16 +134,12 @@ keys = [
 groups = []
 
 # FOR QWERTY KEYBOARDS
-group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0",]
-
-# FOR AZERTY KEYBOARDS
-#group_names = ["ampersand", "eacute", "quotedbl", "apostrophe", "parenleft", "section", "egrave", "exclam", "ccedilla", "agrave",]
-
+group_names = ["1", "2", "3", "4"]
 #group_labels = ["1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "0",]
-group_labels = ["", "", "", "", "", "", "", "", "", "",]
-#group_labels = ["Web", "Edit/chat", "Image", "Gimp", "Meld", "Video", "Vb", "Files", "Mail", "Music",]
+# group_labels = ["", "", "", "", "", "", "", "", "", "",]
+group_labels = ["Browser", "Terminal", "Social", "Gaming"]
 
-group_layouts = ["monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall",]
+group_layouts = ["monadtall", "monadtall", "monadtall", "floating"]
 #group_layouts = ["monadtall", "matrix", "monadtall", "bsp", "monadtall", "matrix", "monadtall", "bsp", "monadtall", "monadtall",]
 
 for i in range(len(group_names)):
@@ -247,19 +166,36 @@ for i in groups:
     ])
 
 
+# COLORS FOR THE BAR
+
+def init_colors():
+    return [["#2F343F", "#2F343F"], # color 0
+            ["#20212b", "#20212b"], # color 1
+            ["#f8f8f2", "#f8f8f2"], # color 2
+            ["#fba922", "#fba922"], # color 3
+            ["#3384d0", "#3384d0"], # color 4
+            ["#f3f4f5", "#f3f4f5"], # color 5
+            ["#cd1f3f", "#cd1f3f"], # color 6
+            ["#62FF00", "#62FF00"], # color 7
+            ["#bd93f9", "#bd93f9"], # color 8
+            ["#a9a9a9", "#a9a9a9"]] # color 9
+
+
+colors = init_colors()
+
 def init_layout_theme():
     return {"margin":5,
             "border_width":2,
-            "border_focus": "#5e81ac",
-            "border_normal": "#4c566a"
+            "border_focus": "#bd93f9",
+            "border_normal": "#20212b"
             }
 
 layout_theme = init_layout_theme()
 
 
 layouts = [
-    layout.MonadTall(margin=2, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
-    layout.MonadWide(margin=2, border_width=2, border_focus="#5e81ac", border_normal="#4c566a"),
+    layout.MonadTall(margin=2, border_width=2, border_focus="#bd93f9", border_normal="#20212b"),
+    layout.MonadWide(margin=2, border_width=2, border_focus="#bd93f9", border_normal="#20212b"),
     layout.Matrix(**layout_theme),
     layout.Bsp(**layout_theme),
     layout.Floating(**layout_theme),
@@ -267,22 +203,6 @@ layouts = [
     layout.Max(**layout_theme)
 ]
 
-# COLORS FOR THE BAR
-
-def init_colors():
-    return [["#2F343F", "#2F343F"], # color 0
-            ["#2F343F", "#2F343F"], # color 1
-            ["#c0c5ce", "#c0c5ce"], # color 2
-            ["#fba922", "#fba922"], # color 3
-            ["#3384d0", "#3384d0"], # color 4
-            ["#f3f4f5", "#f3f4f5"], # color 5
-            ["#cd1f3f", "#cd1f3f"], # color 6
-            ["#62FF00", "#62FF00"], # color 7
-            ["#6790eb", "#6790eb"], # color 8
-            ["#a9a9a9", "#a9a9a9"]] # color 9
-
-
-colors = init_colors()
 
 
 
@@ -300,16 +220,16 @@ widget_defaults = init_widgets_defaults()
 def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     widgets_list = [
-               widget.GroupBox(font="FontAwesome",
-                        fontsize = 16,
-                        margin_y = -1,
-                        margin_x = 0,
-                        padding_y = 6,
+               widget.GroupBox(font="Noto Sans Bold",
+                        fontsize = 12,
+                        # margin_y = 0,
+                        # margin_x = 0,
+                        # padding_y = 0,
                         padding_x = 5,
                         borderwidth = 0,
                         disable_drag = True,
-                        active = colors[9],
-                        inactive = colors[5],
+                        active = colors[5],
+                        inactive = colors[9],
                         rounded = False,
                         highlight_method = "text",
                         this_current_screen_border = colors[8],
@@ -409,15 +329,7 @@ def init_widgets_list():
                #          fontsize = 12,
                #          foreground = colors[5],
                #          background = colors[1],
-	           #          ),
-               widget.TextBox(
-                        font="FontAwesome",
-                        text="  ",
-                        foreground=colors[6],
-                        background=colors[1],
-                        padding = 0,
-                        fontsize=16
-                        ),
+	       #          ),
                widget.CPUGraph(
                         border_color = colors[2],
                         fill_color = colors[8],
@@ -475,11 +387,6 @@ def init_widgets_list():
                         padding = 10,
                         foreground = colors[2],
                         background = colors[1]
-                        ),
-               widget.Systray(
-                        background=colors[1],
-                        icon_size=20,
-                        padding = 4
                         ),
               ]
     return widgets_list
