@@ -59,9 +59,13 @@ let g:rehash256 = 1
 " set the leader key to space
 let mapleader = " "           
 
-" vim-unimpaired map [ to < and ] to >
-nmap < [
-nmap > ]
+" vim-unimpaired movements
+nmap <e <PLUG>unimpairedMoveUp
+nmap >e <PLUG>unimpairedMoveDown
+xmap <e <PLUG>unimpairedMoveSelectionUp
+xmap >e <PLUG>unimpairedMoveSelectionDown
+nmap <<space> <PLUG>unimpairedBlankUp 
+nmap ><space> <PLUG>unimpairedBlankDown
 
 " manage buffers
 nmap bn :bnext<CR>
