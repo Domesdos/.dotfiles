@@ -39,7 +39,7 @@ mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
-myTerm = "alacritty"
+myTerm = "kitty"
 
 
 @lazy.function
@@ -56,46 +56,31 @@ def window_to_next_group(qtile):
 
 keys = [
 
-# FUNCTION KEYS
-
-
-# SUPER [mod] + KEY 
-
+# Window management
     Key([mod], "f", lazy.window.toggle_fullscreen()),
     Key([mod], "x", lazy.window.kill()),
     Key([mod], "Escape", lazy.spawn('xkill')),
-    Key([mod], "Return", lazy.spawn(myTerm)),
-
-# SUPER [mod] + SHIFT +  KEY
-
-    Key([mod, "shift"], "f", lazy.spawn(myTerm+" -t 'ranger' -e ranger")),
-    Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=12'")),
-    Key([mod, "shift"], "q", lazy.shutdown()),
-    Key([mod, "shift"], "r", lazy.restart()),
-    Key([mod, "shift"], "b", lazy.spawn('vivaldi-stable')),
-
-# CONTROL [mod2] + ALT [mod1] +  KEY
-
-    ##
-
-# ALT [mod1] + KEY
-
-    ##
-
-# CONTROL [mod2] + SHIFT +  KEY
-
-    ##
-
-# QTILE LAYOUT KEYS
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "space", lazy.next_layout()),
+
+# Spawning programs
+    Key([mod], "Print", lazy.spawn(myTerm+" flameshot gui")),
+    Key([mod, "shift"], "Print", lazy.spawn(myTerm+' flameshot full -p /home/mw/Screenshots')),
+    Key([mod], "Return", lazy.spawn(myTerm)),
+    Key([mod, "shift"], "f", lazy.spawn(myTerm+" -T 'ranger' ranger")),
+    Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=12'")),
+    Key([mod, "shift"], "b", lazy.spawn('vivaldi-stable')),
+
+# SUPER + SHIFT +  KEY
+    Key([mod, "shift"], "q", lazy.shutdown()),
+    Key([mod, "shift"], "r", lazy.restart()),
+    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
 
 # CHANGE FOCUS
     Key([mod], "k", lazy.layout.up()),
     Key([mod], "j", lazy.layout.down()),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
-
 
 # RESIZE UP, DOWN, LEFT, RIGHT
     Key([mod, "control"], "l",
@@ -121,26 +106,19 @@ keys = [
         lazy.layout.increase_nmaster(),
         ),
 
-
 # MOVE WINDOWS UP OR DOWN MONADTALL/MONADWIDE LAYOUT
     Key([mod, "shift"], "Up", lazy.layout.shuffle_up()),
     Key([mod, "shift"], "Down", lazy.layout.shuffle_down()),
     Key([mod, "shift"], "Left", lazy.layout.swap_left()),
     Key([mod, "shift"], "Right", lazy.layout.swap_right()),
+]
 
-# TOGGLE FLOATING LAYOUT
-    Key([mod, "shift"], "space", lazy.window.toggle_floating()),]
 
+# Set workspaces
 groups = []
-
-# FOR QWERTY KEYBOARDS
-group_names = ["1", "2", "3", "4"]
-#group_labels = ["1 ", "2 ", "3 ", "4 ", "5 ", "6 ", "7 ", "8 ", "9 ", "0",]
-# group_labels = ["", "", "", "", "", "", "", "", "", "",]
-group_labels = ["Browser", "Terminal", "Social", "Gaming"]
-
-group_layouts = ["monadtall", "monadtall", "monadtall", "floating"]
-#group_layouts = ["monadtall", "matrix", "monadtall", "bsp", "monadtall", "matrix", "monadtall", "bsp", "monadtall", "monadtall",]
+group_names = ["1", "2", "3", "4", "5"]
+group_labels = ["Browser", "Terminal", "Social", "Gaming", "Misc"]
+group_layouts = ["monadtall", "monadtall", "monadtall", "floating", "monadtall"]
 
 for i in range(len(group_names)):
     groups.append(
@@ -159,8 +137,6 @@ for i in groups:
         Key(["mod1"], "Tab", lazy.screen.next_group()),
         Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
 
-# MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND STAY ON WORKSPACE
-        #Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
 # MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
@@ -249,6 +225,8 @@ def init_widgets_list():
                    linewidth = 1,
                    padding = 10,
                ),
+               widget.Systray(),
+               widget.Spacer(length = 40),
                widget.WindowName(
                    fontsize = 12,
                    foreground = colors[5],
