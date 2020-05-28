@@ -32,7 +32,7 @@ import subprocess
 from libqtile.config import Drag, Key, Screen, Group, Drag, Click, Rule
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
-from libqtile.widget import Spacer
+# from libqtile.widget import Spacer
 
 #mod4 or mod = super key
 mod = "mod4"
@@ -42,17 +42,17 @@ home = os.path.expanduser('~')
 myTerm = "kitty"
 
 
-@lazy.function
-def window_to_prev_group(qtile):
-    if qtile.currentWindow is not None:
-        i = qtile.groups.index(qtile.currentGroup)
-        qtile.currentWindow.togroup(qtile.groups[i - 1].name)
+# @lazy.function
+# def window_to_prev_group(qtile):
+#     if qtile.currentWindow is not None:
+#         i = qtile.groups.index(qtile.currentGroup)
+#         qtile.currentWindow.togroup(qtile.groups[i - 1].name)
 
-@lazy.function
-def window_to_next_group(qtile):
-    if qtile.currentWindow is not None:
-        i = qtile.groups.index(qtile.currentGroup)
-        qtile.currentWindow.togroup(qtile.groups[i + 1].name)
+# @lazy.function
+# def window_to_next_group(qtile):
+#     if qtile.currentWindow is not None:
+#         i = qtile.groups.index(qtile.currentGroup)
+#         qtile.currentWindow.togroup(qtile.groups[i + 1].name)
 
 keys = [
 
@@ -68,7 +68,7 @@ keys = [
     Key([mod, "shift"], "Print", lazy.spawn(myTerm+' flameshot full -p /home/mw/Screenshots')),
     Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod, "shift"], "f", lazy.spawn(myTerm+" -T 'ranger' ranger")),
-    Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=12'")),
+    Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -i")),
     Key([mod, "shift"], "b", lazy.spawn('vivaldi-stable')),
 
 # SUPER + SHIFT +  KEY
@@ -144,51 +144,31 @@ for i in groups:
 
 
 def init_layout_theme():
-    return {"margin":5,
+    return {"margin":3,
             "border_width":2,
             "border_focus": "#bd93f9",
-            "border_normal": "#20212b"
+            "border_normal": "#2a3846"
             }
 
 layout_theme = init_layout_theme()
 
 
 layouts = [
-    layout.MonadTall(margin=2, border_width=2, border_focus="#bd93f9", border_normal="#20212b"),
-    layout.MonadWide(margin=2, border_width=2, border_focus="#bd93f9", border_normal="#20212b"),
+    layout.MonadTall(margin=0, border_width=2, border_focus="#bd93f9", border_normal="#2a3846"),
+    layout.MonadWide(margin=0, border_width=2, border_focus="#bd93f9", border_normal="#2a3846"),
     layout.Matrix(**layout_theme),
-    layout.Bsp(**layout_theme),
     layout.Floating(**layout_theme),
-    layout.RatioTile(**layout_theme),
     layout.Max(**layout_theme)
 ]
 
 
-
-
-# Bar colors
-def init_colors():
-    return [["#20212b", "#20212b"], # color 0 | Background default
-            ["#f8f8f2", "#f8f8f2"], # color 1 | Foreground default
-            ["#bd93f9", "#bd93f9"], # color 2
-            ["#6a8caf", "#6a8caf"], # color 3
-            ["#75b79e", "#75b79e"], # color 4
-            ["#f1935c", "#f1935c"], # color 5
-            ["#eef9bf", "#eef9bf"], # color 6
-            ["#f67280", "#f67280"], # color 7
-            ["#4baea0", "#4baea0"], # color 8
-            ["#a9a9a9", "#a9a9a9"]] # color 9
-
-
-colors = init_colors()
-
 # Bar widgets
 def init_widgets_defaults():
-    return dict(font="Noto Sans",
+    return dict(font="Hack Nerd Font",
                 fontsize = 12,
                 padding = 2,
-                background=colors[0],
-                foreground=colors[1])
+                background="#20212b",
+                foreground="#f8f8f2")
 
 widget_defaults = init_widgets_defaults()
 
@@ -196,16 +176,15 @@ def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     widgets_list = [
                widget.GroupBox(
-                   font="Noto Sans Bold",
-                   fontsize = 12,
+                   font = "Hack Nerd Font Bold",
                    padding_x = 5,
                    borderwidth = 0,
                    disable_drag = True,
-                   active = colors[1],
-                   inactive = colors[9],
+                   active = "#f8f8f2",
+                   inactive = "#a9a9a9",
                    rounded = False,
                    highlight_method = "text",
-                   this_current_screen_border = colors[2],
+                   this_current_screen_border = "#bd93f9",
                ),
                widget.Spacer(length = 400),
                widget.TextBox(
@@ -214,7 +193,7 @@ def init_widgets_list():
                    text = "",
                ),
                widget.CurrentLayout(
-                   foreground = colors[3],
+                   foreground = "#6a8caf",
                ),
                widget.TextBox(
                    font="FontAwesome",
@@ -229,36 +208,37 @@ def init_widgets_list():
                widget.Spacer(length = 40),
                widget.WindowName(
                    fontsize = 12,
-                   foreground = colors[5],
+                   foreground = "#bd93f9",
                ),
+               widget.Spacer(length = 200),
                widget.ThermalSensor(
-                   foreground = colors[6],
-                   foreground_alert = colors[5],
+                   foreground = "#eef9bf",
+                   foreground_alert = "#f1935c",
                    ),
                widget.Spacer(length = 10),
                widget.Pacman(
-                   foreground = colors[3],
-                   unavailable = colors[3],
+                   foreground = "#6a8caf",
+                   unavailable = "#6a8caf",
                    fmt = 'Updates: {0}',
                ),
                widget.Spacer(length = 10),
                widget.TextBox(
                    text = "Net: ",
-                   foreground = colors[8],
+                   foreground = "#4baea0",
                ),
                widget.NetGraph(
                    border_width = 0,
-                   graph_color = colors[8],
+                   graph_color = "#4baea0",
                    type = "line",
                    line_width = 1,
                ),
                widget.Net(
-                   foreground = colors[8],
+                   foreground = "#4baea0",
                    format = '{down}',
                ),
                widget.Spacer(length = 10),
                widget.CPU(
-                   foreground = colors[7],
+                   foreground = "#f67280",
                    format = 'CPU: {freq_current}GHz - {load_percent}%',
                ),
                widget.Spacer(length = 10),
@@ -266,11 +246,11 @@ def init_widgets_list():
                    format = 'Memory: {MemUsed}M/{MemTotal}M',
                    update_interval = 1,
                    fontsize = 12,
-                   foreground = colors[5],
+                   foreground = "#f1935c",
                ),
                widget.Spacer(length = 10),
                widget.Clock(
-                   foreground = colors[6],
+                   foreground = "#eef9bf",
                    fontsize = 12,
                    format="%a. %d.%m.%Y | %H:%M Uhr"
                ),
