@@ -175,20 +175,21 @@ widget_defaults = init_widgets_defaults()
 def init_widgets_list():
     prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
     widgets_list = [
+            # Workspaces
                widget.GroupBox(
                    font = "Hack Nerd Font Bold",
                    padding_x = 5,
                    borderwidth = 0,
                    disable_drag = True,
-                   active = "#f8f8f2",
-                   inactive = "#a9a9a9",
+                   active = "#eef9bf",
+                   inactive = "#6a8caf",
                    rounded = False,
                    highlight_method = "text",
                    this_current_screen_border = "#bd93f9",
                ),
                widget.Spacer(length = 400),
+            # Layout | Systray Windowname
                widget.TextBox(
-                   font = "FontAwesome",
                    fontsize = 16,
                    text = "",
                ),
@@ -196,7 +197,6 @@ def init_widgets_list():
                    foreground = "#6a8caf",
                ),
                widget.TextBox(
-                   font="FontAwesome",
                    fontsize = 16,
                    text = "",
                ),
@@ -207,10 +207,10 @@ def init_widgets_list():
                widget.Systray(),
                widget.Spacer(length = 40),
                widget.WindowName(
-                   fontsize = 12,
                    foreground = "#bd93f9",
                ),
                widget.Spacer(length = 200),
+            # Stats
                widget.ThermalSensor(
                    foreground = "#eef9bf",
                    foreground_alert = "#f1935c",
@@ -222,19 +222,9 @@ def init_widgets_list():
                    fmt = 'Updates: {0}',
                ),
                widget.Spacer(length = 10),
-               widget.TextBox(
-                   text = "Net: ",
-                   foreground = "#4baea0",
-               ),
-               widget.NetGraph(
-                   border_width = 0,
-                   graph_color = "#4baea0",
-                   type = "line",
-                   line_width = 1,
-               ),
                widget.Net(
                    foreground = "#4baea0",
-                   format = '{down}',
+                   format = ' {up}  {down}',
                ),
                widget.Spacer(length = 10),
                widget.CPU(
@@ -245,13 +235,11 @@ def init_widgets_list():
                widget.Memory(
                    format = 'Memory: {MemUsed}M/{MemTotal}M',
                    update_interval = 1,
-                   fontsize = 12,
                    foreground = "#f1935c",
                ),
                widget.Spacer(length = 10),
                widget.Clock(
                    foreground = "#eef9bf",
-                   fontsize = 12,
                    format="%a. %d.%m.%Y | %H:%M Uhr"
                ),
                widget.Spacer(length = 10),
