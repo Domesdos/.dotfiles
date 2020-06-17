@@ -6,6 +6,6 @@ Host github.com
 
 Host nextcloud
     HostName 164.90.168.66
-    User root
+    User mw
     AddKeysToAgent yes
     IdentityFile ~/.ssh/nextcloud
