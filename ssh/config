@@ -1,0 +1,10 @@
+
+Host github.com
+    HostName github.com
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/github
+
+Host nextcloud
+    HostName 164.90.168.66
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/nextcloud
