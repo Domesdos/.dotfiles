@@ -119,6 +119,7 @@ alias mkrc="mkrc -v"
 alias rcup="rcup -v"
 alias mkdir="mkdir -v"
 alias cp="cp -iv"
+alias rm="rm -Iv"
 
 alias ls=lsd 
 
