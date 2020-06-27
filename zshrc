@@ -80,7 +80,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-completions git themes colored-man-pages)
+plugins=(git themes colored-man-pages)
 
 autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
@@ -120,6 +120,7 @@ alias rcup="rcup -v"
 alias mkdir="mkdir -v"
 alias cp="cp -iv"
 alias rm="rm -Iv"
+alias mv="mv -v"
 
 alias ls=lsd 
 

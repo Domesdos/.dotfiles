@@ -32,7 +32,6 @@ import subprocess
 from libqtile.config import Drag, Key, Screen, Group, Drag, Click, Rule
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
-# from libqtile.widget import Spacer
 
 #mod4 or mod = super key
 mod = "mod4"
@@ -42,18 +41,7 @@ home = os.path.expanduser('~')
 myTerm = "kitty"
 
 
-# @lazy.function
-# def window_to_prev_group(qtile):
-#     if qtile.currentWindow is not None:
-#         i = qtile.groups.index(qtile.currentGroup)
-#         qtile.currentWindow.togroup(qtile.groups[i - 1].name)
-
-# @lazy.function
-# def window_to_next_group(qtile):
-#     if qtile.currentWindow is not None:
-#         i = qtile.groups.index(qtile.currentGroup)
-#         qtile.currentWindow.togroup(qtile.groups[i + 1].name)
-
+# Keyboard shortcuts
 keys = [
 
 # Window management
@@ -116,9 +104,9 @@ keys = [
 
 # Set workspaces
 groups = []
-group_names = ["1", "2", "3", "4", "5"]
-group_labels = ["Browser", "Terminal", "Social", "Gaming", "Misc"]
-group_layouts = ["monadtall", "monadtall", "monadtall", "floating", "monadtall"]
+group_names = ["1", "2", "3", "4", "5", "6"]
+group_labels = ["Browser", "Terminal", "Social", "Gaming", "Coding", "Misc"]
+group_layouts = ["monadtall", "monadtall", "monadtall", "floating", "monadtall", "monadtall"]
 
 for i in range(len(group_names)):
     groups.append(
@@ -275,49 +263,25 @@ mouse = [
          start=lazy.window.get_size())
 ]
 
-dgroups_key_binder = None
-dgroups_app_rules = []
+# dgroups_key_binder = None
+# dgroups_app_rules = []
 
-# ASSIGN APPLICATIONS TO A SPECIFIC GROUPNAME
-# BEGIN
+# Assign window to specific group
+@hook.subscribe.client_new
+def window_to_group(client):
+    wm_class = client.window.get_wm_class()[0].lower()
 
-# @hook.subscribe.client_new
-# def assign_app_group(client):
-#     d = {}
-#     #########################################################
-#     ################ assgin apps to groups ##################
-#     #########################################################
-#     d["1"] = ["Navigator", "Firefox", "Vivaldi-stable", "Vivaldi-snapshot", "Chromium", "Google-chrome", "Brave", "Brave-browser",
-#               "navigator", "firefox", "vivaldi-stable", "vivaldi-snapshot", "chromium", "google-chrome", "brave", "brave-browser", ]
-#     d["2"] = [ "Atom", "Subl3", "Geany", "Brackets", "Code-oss", "Code", "TelegramDesktop", "Discord",
-#                "atom", "subl3", "geany", "brackets", "code-oss", "code", "telegramDesktop", "discord", ]
-#     d["3"] = ["Inkscape", "Nomacs", "Ristretto", "Nitrogen", "Feh",
-#               "inkscape", "nomacs", "ristretto", "nitrogen", "feh", ]
-#     d["4"] = ["Gimp", "gimp" ]
-#     d["5"] = ["Meld", "meld", "org.gnome.meld" "org.gnome.Meld" ]
-#     d["6"] = ["Vlc","vlc", "Mpv", "mpv" ]
-#     d["7"] = ["VirtualBox Manager", "VirtualBox Machine", "Vmplayer",
-#               "virtualbox manager", "virtualbox machine", "vmplayer", ]
-#     d["8"] = ["Thunar", "Nemo", "Caja", "Nautilus", "org.gnome.Nautilus", "Pcmanfm", "Pcmanfm-qt",
-#               "thunar", "nemo", "caja", "nautilus", "org.gnome.nautilus", "pcmanfm", "pcmanfm-qt", ]
-#     d["9"] = ["Evolution", "Geary", "Mail", "Thunderbird",
-#               "evolution", "geary", "mail", "thunderbird" ]
-#     d["0"] = ["Spotify", "Pragha", "Clementine", "Deadbeef", "Audacious", #               "spotify", "pragha", "clementine", "deadbeef", "audacious" ]
-#     ##########################################################
-#     wm_class = client.window.get_wm_class()[0]
-#
-#     for i in range(len(d)):
-#         if wm_class in list(d.values())[i]:
-#             group = list(d.keys())[i]
-#             client.togroup(group)
-#             client.group.cmd_toscreen()
-
-# END
-# ASSIGN APPLICATIONS TO A SPECIFIC GROUPNAME
+    windows = {
+        "steam": "4",
+        "telegram-desktop": "3",
+        "discord": "3",
+        "vivaldi-stable": "1"
+    }
+    if wm_class in windows:
+        client.togroup(windows.get(wm_class))
 
 
-
-main = None
+# main = None
 
 @hook.subscribe.startup_once
 def start_once():
@@ -329,20 +293,19 @@ def start_always():
     # Set the cursor to something sane in X
     subprocess.Popen(['xsetroot', '-cursor_name', 'left_ptr'])
 
-@hook.subscribe.client_new
-def set_floating(window):
-    if (window.window.get_wm_transient_for()
-            or window.window.get_wm_type() in floating_types):
-        window.floating = True
+# @hook.subscribe.client_new
+# def set_floating(window):
+#     if (window.window.get_wm_transient_for()
+#             or window.window.get_wm_type() in floating_types):
+#         window.floating = True
 
-floating_types = ["notification", "toolbar", "splash", "dialog"]
+# floating_types = ["notification", "toolbar", "splash", "dialog"]
 
 
-follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
+# follow_mouse_focus = True
+# bring_front_click = False
+# cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
-    {'wmclass': 'Arcolinux-welcome-app.py'},
     {'wmclass': 'Arcolinux-tweak-tool.py'},
     {'wmclass': 'confirm'},
     {'wmclass': 'dialog'},
@@ -356,21 +319,18 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'makebranch'},
     {'wmclass': 'maketag'},
     {'wmclass': 'Arandr'},
-    {'wmclass': 'feh'},
     {'wmclass': 'Galculator'},
-    {'wmclass': 'arcolinux-logout'},
-    {'wmclass': 'xfce4-terminal'},
     {'wname': 'branchdialog'},
     {'wname': 'Open File'},
     {'wname': 'pinentry'},
     {'wmclass': 'ssh-askpass'},
     {'wname': 'Steam'},
     {'wmclass': 'Steam'},
-    # {'wname': 'ranger'},
+    {'wname': 'ranger'},
 
-],  fullscreen_border_width = 0, border_width = 0)
-auto_fullscreen = True
+],  fullscreen_border_width = 0, border_width = 2, border_focus="#bd93f9", border_normal="#2a3846")
+# auto_fullscreen = True
 
-focus_on_window_activation = "focus" # or smart
+# focus_on_window_activation = "focus" # or smart
 
-wmname = "LG3D"
+# wmname = "LG3D"

@@ -9,3 +9,15 @@ Host nextcloud
     User mw
     AddKeysToAgent yes
     IdentityFile ~/.ssh/nextcloud
+
+Host nas
+    HostName 192.168.178.22
+    User admin
+    AddKeysToAgent yes
+    Identityfile ~/.ssh/nas
+
+Host pihole
+    HostName 192.168.178.29
+    User mw
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/pihole
