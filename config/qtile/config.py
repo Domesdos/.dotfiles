@@ -52,12 +52,12 @@ keys = [
     Key([mod], "space", lazy.next_layout()),
 
 # Spawning programs
-    Key([mod], "Print", lazy.spawn(myTerm+" flameshot gui")),
+    Key([mod], "Print", lazy.spawn("alacritty -e flameshot gui")),
     Key([mod, "shift"], "Print", lazy.spawn(myTerm+' flameshot full -p /home/mw/Screenshots')),
     Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod, "shift"], "f", lazy.spawn(myTerm+" -T 'ranger' ranger")),
     Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -i")),
-    Key([mod, "shift"], "b", lazy.spawn('vivaldi-stable')),
+    Key([mod, "shift"], "b", lazy.spawn('brave')),
 
 # SUPER + SHIFT +  KEY
     Key([mod, "shift"], "q", lazy.shutdown()),
@@ -142,8 +142,8 @@ layout_theme = init_layout_theme()
 
 
 layouts = [
-    layout.MonadTall(margin=0, border_width=2, border_focus="#bd93f9", border_normal="#2a3846"),
-    layout.MonadWide(margin=0, border_width=2, border_focus="#bd93f9", border_normal="#2a3846"),
+    layout.MonadTall(margin=4, border_width=2, border_focus="#bd93f9", border_normal="#2a3846"),
+    layout.MonadWide(margin=4, border_width=2, border_focus="#bd93f9", border_normal="#2a3846"),
     layout.Matrix(**layout_theme),
     layout.Floating(**layout_theme),
     layout.Max(**layout_theme)
