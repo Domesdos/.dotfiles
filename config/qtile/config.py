@@ -38,7 +38,7 @@ mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
-myTerm = "kitty"
+myTerm = "alacritty"
 
 
 # Keyboard shortcuts
@@ -47,17 +47,17 @@ keys = [
 # Window management
     Key([mod], "f", lazy.window.toggle_fullscreen()),
     Key([mod], "x", lazy.window.kill()),
-    Key([mod], "Escape", lazy.spawn('xkill')),
+    Key([mod], "Escape", lazy.spawn("xkill")),
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "space", lazy.next_layout()),
 
 # Spawning programs
-    Key([mod], "Print", lazy.spawn("alacritty -e flameshot gui")),
-    Key([mod, "shift"], "Print", lazy.spawn(myTerm+' flameshot full -p /home/mw/Screenshots')),
+    Key([mod], "Print", lazy.spawn(myTerm+" -e flameshot gui")),
+    Key([mod, "shift"], "Print", lazy.spawn(myTerm+" -e flameshot full -p /home/mw/Screenshots")),
     Key([mod], "Return", lazy.spawn(myTerm)),
-    Key([mod, "shift"], "f", lazy.spawn(myTerm+" -T 'ranger' ranger")),
+    Key([mod, "shift"], "f", lazy.spawn(myTerm+' -t ranger -e ranger')),
     Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -i")),
-    Key([mod, "shift"], "b", lazy.spawn('brave')),
+    Key([mod, "shift"], "b", lazy.spawn("firefox")),
 
 # SUPER + SHIFT +  KEY
     Key([mod, "shift"], "q", lazy.shutdown()),
