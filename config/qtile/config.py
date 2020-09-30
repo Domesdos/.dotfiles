@@ -273,6 +273,8 @@ def window_to_group(client):
 
     windows = {
         "steam": "4",
+        "lutris": "4",
+        "battle.net.exe": "4",
         "telegram-desktop": "3",
         "discord": "3",
         "vivaldi-stable": "1"
