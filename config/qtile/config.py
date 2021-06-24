@@ -57,7 +57,7 @@ keys = [
     Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod, "shift"], "f", lazy.spawn(myTerm+' -t ranger -e ranger')),
     Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -i")),
-    Key([mod, "shift"], "b", lazy.spawn("firefox")),
+    Key([mod, "shift"], "b", lazy.spawn("vivaldi-stable")),
 
 # SUPER + SHIFT +  KEY
     Key([mod, "shift"], "q", lazy.shutdown()),
@@ -204,9 +204,9 @@ def init_widgets_list():
                    foreground_alert = "#f1935c",
                    ),
                widget.Spacer(length = 10),
-               widget.Pacman(
-                   foreground = "#6a8caf",
-                   unavailable = "#6a8caf",
+               widget.CheckUpdates(
+                   #foreground = "#6a8caf",
+                   #unavailable = "#6a8caf",
                    fmt = 'Updates: {0}',
                ),
                widget.Spacer(length = 10),
@@ -335,4 +335,4 @@ floating_layout = layout.Floating(float_rules=[
 
 # focus_on_window_activation = "focus" # or smart
 
-# wmname = "LG3D"
+wmname = "LG3D"
